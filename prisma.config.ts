@@ -7,8 +7,6 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env.DATABASE_URL!,
-    // Migration'lar için doğrudan bağlantı (pgbouncer bypass)
-    directUrl: process.env.DIRECT_URL,
+    url: process.env.DATABASE_URL ?? "postgresql://placeholder",
   },
 });

@@ -1,7 +1,7 @@
 export interface Deal {
   id: string;
   brand: string;
-  logo: string;
+  logoUrl: string;
   title: string;
   discount: number;
   originalPrice: number;
@@ -11,6 +11,17 @@ export interface Deal {
   category: string;
   imageUrl: string;
   badge?: "hot" | "new" | "last";
+}
+
+export interface Brand {
+  id: string;
+  slug: string;
+  name: string;
+  logoUrl: string;
+  description: string;
+  category: string;
+  dealCount: number;
+  websiteUrl: string;
 }
 
 export interface Category {

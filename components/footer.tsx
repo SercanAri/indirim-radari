@@ -1,9 +1,9 @@
 const footerLinks = {
   Platform: [
-    { label: "Nasıl Çalışır?", href: "/nasil-calisir" },
+    { label: "Tüm Kampanyalar", href: "/kampanyalar" },
     { label: "Markalar", href: "/markalar" },
-    { label: "Kategoriler", href: "/kategoriler" },
-    { label: "Bildirimler", href: "/bildirimler" },
+    { label: "Kategoriler", href: "/kampanyalar" },
+    { label: "Giriş Yap", href: "/giris" },
   ],
   Şirket: [
     { label: "Hakkımızda", href: "/hakkimizda" },

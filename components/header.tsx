@@ -4,10 +4,10 @@ import { useState } from "react";
 import { NavLink } from "@/types";
 
 const navLinks: NavLink[] = [
-  { label: "Bugün", href: "#bugun" },
-  { label: "Yakında", href: "#yakinda" },
-  { label: "Kategoriler", href: "#kategoriler" },
-  { label: "Markalar", href: "#markalar" },
+  { label: "Kampanyalar", href: "/kampanyalar" },
+  { label: "Markalar", href: "/markalar" },
+  { label: "Kategoriler", href: "/#kategoriler" },
+  { label: "Yakında", href: "/#yakinda" },
 ];
 
 export default function Header() {

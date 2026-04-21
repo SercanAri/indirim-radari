@@ -1,18 +1,18 @@
-import { Deal, Category } from "@/types";
+import { Deal, Category, Brand } from "@/types";
 
 const now = new Date();
-
 const addHours = (date: Date, hours: number) =>
   new Date(date.getTime() + hours * 60 * 60 * 1000);
-
 const addDays = (date: Date, days: number) =>
   new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+
+const logo = (domain: string) => `https://logo.clearbit.com/${domain}`;
 
 export const todayDeals: Deal[] = [
   {
     id: "1",
     brand: "Nike",
-    logo: "🏃",
+    logoUrl: logo("nike.com"),
     title: "Yaz Koleksiyonu %40 İndirim",
     discount: 40,
     originalPrice: 2499,
@@ -20,13 +20,13 @@ export const todayDeals: Deal[] = [
     endsAt: addHours(now, 18),
     startsAt: addHours(now, -2),
     category: "Spor",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
     badge: "hot",
   },
   {
     id: "2",
     brand: "Zara",
-    logo: "👗",
+    logoUrl: logo("zara.com"),
     title: "Sezon Sonu Büyük İndirim",
     discount: 50,
     originalPrice: 1800,
@@ -34,13 +34,13 @@ export const todayDeals: Deal[] = [
     endsAt: addHours(now, 24),
     startsAt: addHours(now, -1),
     category: "Moda",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
     badge: "new",
   },
   {
     id: "3",
     brand: "Teknosa",
-    logo: "📱",
+    logoUrl: logo("teknosa.com"),
     title: "Elektronik Ürünlerde %30 İndirim",
     discount: 30,
     originalPrice: 15000,
@@ -48,12 +48,12 @@ export const todayDeals: Deal[] = [
     endsAt: addHours(now, 12),
     startsAt: addHours(now, -3),
     category: "Elektronik",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&h=300&fit=crop",
   },
   {
     id: "4",
     brand: "Boyner",
-    logo: "🛍️",
+    logoUrl: logo("boyner.com.tr"),
     title: "2 Al 1 Öde Kampanyası",
     discount: 50,
     originalPrice: 3200,
@@ -61,12 +61,12 @@ export const todayDeals: Deal[] = [
     endsAt: addHours(now, 36),
     startsAt: addHours(now, -5),
     category: "Moda",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&h=300&fit=crop",
   },
   {
     id: "5",
     brand: "MediaMarkt",
-    logo: "🖥️",
+    logoUrl: logo("mediamarkt.com.tr"),
     title: "Laptop Fırsatları",
     discount: 25,
     originalPrice: 32000,
@@ -74,12 +74,12 @@ export const todayDeals: Deal[] = [
     endsAt: addHours(now, 10),
     startsAt: addHours(now, -1),
     category: "Elektronik",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
   },
   {
     id: "6",
     brand: "H&M",
-    logo: "👔",
+    logoUrl: logo("hm.com"),
     title: "Erkek Giyimde %35 İndirim",
     discount: 35,
     originalPrice: 1200,
@@ -87,7 +87,7 @@ export const todayDeals: Deal[] = [
     endsAt: addHours(now, 20),
     startsAt: addHours(now, -4),
     category: "Moda",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=300&fit=crop",
     badge: "new",
   },
 ];
@@ -96,7 +96,7 @@ export const upcomingDeals: Deal[] = [
   {
     id: "7",
     brand: "Apple",
-    logo: "🍎",
+    logoUrl: logo("apple.com"),
     title: "Back to School Kampanyası",
     discount: 15,
     originalPrice: 45000,
@@ -104,12 +104,12 @@ export const upcomingDeals: Deal[] = [
     startsAt: addHours(now, 2),
     endsAt: addDays(now, 3),
     category: "Elektronik",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
   },
   {
     id: "8",
     brand: "LC Waikiki",
-    logo: "👕",
+    logoUrl: logo("lcwaikiki.com"),
     title: "Okul Sezonu İndirimi",
     discount: 45,
     originalPrice: 800,
@@ -117,12 +117,12 @@ export const upcomingDeals: Deal[] = [
     startsAt: addHours(now, 5),
     endsAt: addDays(now, 7),
     category: "Moda",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=300&fit=crop",
   },
   {
     id: "9",
     brand: "Adidas",
-    logo: "⚽",
+    logoUrl: logo("adidas.com"),
     title: "Yeni Sezon Koleksiyonu",
     discount: 20,
     originalPrice: 3500,
@@ -130,12 +130,12 @@ export const upcomingDeals: Deal[] = [
     startsAt: addHours(now, 8),
     endsAt: addDays(now, 5),
     category: "Spor",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&h=300&fit=crop",
   },
   {
     id: "10",
     brand: "Samsung",
-    logo: "📺",
+    logoUrl: logo("samsung.com"),
     title: "TV & Beyaz Eşya Fırsatları",
     discount: 35,
     originalPrice: 28000,
@@ -143,7 +143,7 @@ export const upcomingDeals: Deal[] = [
     startsAt: addDays(now, 1),
     endsAt: addDays(now, 4),
     category: "Elektronik",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1593359677879-a4bb92f4834c?w=400&h=300&fit=crop",
   },
 ];
 
@@ -151,7 +151,7 @@ export const lastHoursDeals: Deal[] = [
   {
     id: "11",
     brand: "Mango",
-    logo: "🌸",
+    logoUrl: logo("mango.com"),
     title: "Son Saatler: %60 İndirim",
     discount: 60,
     originalPrice: 2200,
@@ -159,13 +159,13 @@ export const lastHoursDeals: Deal[] = [
     endsAt: addHours(now, 3),
     startsAt: addHours(now, -20),
     category: "Moda",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=300&fit=crop",
     badge: "last",
   },
   {
     id: "12",
     brand: "Dyson",
-    logo: "🌀",
+    logoUrl: logo("dyson.com"),
     title: "Süpürge & Saç Bakım Fırsatı",
     discount: 30,
     originalPrice: 12000,
@@ -173,13 +173,13 @@ export const lastHoursDeals: Deal[] = [
     endsAt: addHours(now, 2),
     startsAt: addHours(now, -22),
     category: "Ev & Yaşam",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=400&h=300&fit=crop",
     badge: "last",
   },
   {
     id: "13",
     brand: "Sephora",
-    logo: "💄",
+    logoUrl: logo("sephora.com"),
     title: "Kozmetik Kampanyası Bitiyor",
     discount: 40,
     originalPrice: 950,
@@ -187,13 +187,13 @@ export const lastHoursDeals: Deal[] = [
     endsAt: addHours(now, 1),
     startsAt: addHours(now, -23),
     category: "Güzellik",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop",
     badge: "last",
   },
   {
     id: "14",
     brand: "Koton",
-    logo: "🎀",
+    logoUrl: logo("koton.com"),
     title: "Kadın Giyim Son Fırsat",
     discount: 55,
     originalPrice: 1500,
@@ -201,18 +201,37 @@ export const lastHoursDeals: Deal[] = [
     endsAt: addHours(now, 4),
     startsAt: addHours(now, -20),
     category: "Moda",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=400&h=300&fit=crop",
     badge: "last",
   },
 ];
 
 export const categories: Category[] = [
-  { id: "1", name: "Moda", icon: "👗", dealCount: 48, slug: "moda" },
-  { id: "2", name: "Elektronik", icon: "📱", dealCount: 32, slug: "elektronik" },
-  { id: "3", name: "Spor", icon: "⚽", dealCount: 21, slug: "spor" },
-  { id: "4", name: "Ev & Yaşam", icon: "🏠", dealCount: 19, slug: "ev-yasam" },
-  { id: "5", name: "Güzellik", icon: "💄", dealCount: 27, slug: "guzellik" },
-  { id: "6", name: "Kitap & Kırtasiye", icon: "📚", dealCount: 14, slug: "kitap" },
-  { id: "7", name: "Oyun & Hobi", icon: "🎮", dealCount: 11, slug: "oyun-hobi" },
-  { id: "8", name: "Seyahat", icon: "✈️", dealCount: 9, slug: "seyahat" },
+  { id: "1", name: "Moda", icon: "shirt", dealCount: 48, slug: "moda" },
+  { id: "2", name: "Elektronik", icon: "smartphone", dealCount: 32, slug: "elektronik" },
+  { id: "3", name: "Spor", icon: "dumbbell", dealCount: 21, slug: "spor" },
+  { id: "4", name: "Ev & Yaşam", icon: "sofa", dealCount: 19, slug: "ev-yasam" },
+  { id: "5", name: "Güzellik", icon: "sparkles", dealCount: 27, slug: "guzellik" },
+  { id: "6", name: "Kitap & Kırtasiye", icon: "book-open", dealCount: 14, slug: "kitap" },
+  { id: "7", name: "Oyun & Hobi", icon: "gamepad-2", dealCount: 11, slug: "oyun-hobi" },
+  { id: "8", name: "Seyahat", icon: "plane", dealCount: 9, slug: "seyahat" },
+];
+
+export const brands: Brand[] = [
+  { id: "1", slug: "trendyol", name: "Trendyol", logoUrl: logo("trendyol.com"), description: "Türkiye'nin en büyük e-ticaret platformu", category: "E-Ticaret", dealCount: 24, websiteUrl: "https://trendyol.com" },
+  { id: "2", slug: "hepsiburada", name: "Hepsiburada", logoUrl: logo("hepsiburada.com"), description: "Her şey burada, her fiyata uygun", category: "E-Ticaret", dealCount: 18, websiteUrl: "https://hepsiburada.com" },
+  { id: "3", slug: "nike", name: "Nike", logoUrl: logo("nike.com"), description: "Just Do It — Spor giyim ve ayakkabı", category: "Spor", dealCount: 12, websiteUrl: "https://nike.com" },
+  { id: "4", slug: "adidas", name: "Adidas", logoUrl: logo("adidas.com"), description: "Impossible is Nothing", category: "Spor", dealCount: 9, websiteUrl: "https://adidas.com" },
+  { id: "5", slug: "zara", name: "Zara", logoUrl: logo("zara.com"), description: "Moda trendlerini uygun fiyatla sun", category: "Moda", dealCount: 15, websiteUrl: "https://zara.com" },
+  { id: "6", slug: "lc-waikiki", name: "LC Waikiki", logoUrl: logo("lcwaikiki.com"), description: "Herkes için moda", category: "Moda", dealCount: 21, websiteUrl: "https://lcwaikiki.com" },
+  { id: "7", slug: "hm", name: "H&M", logoUrl: logo("hm.com"), description: "Fashion and quality at the best price", category: "Moda", dealCount: 11, websiteUrl: "https://hm.com" },
+  { id: "8", slug: "mediamarkt", name: "MediaMarkt", logoUrl: logo("mediamarkt.com.tr"), description: "Teknoloji ve elektronikte güvenilir adres", category: "Elektronik", dealCount: 16, websiteUrl: "https://mediamarkt.com.tr" },
+  { id: "9", slug: "teknosa", name: "Teknosa", logoUrl: logo("teknosa.com"), description: "Teknoloji hayatı kolaylaştırır", category: "Elektronik", dealCount: 8, websiteUrl: "https://teknosa.com" },
+  { id: "10", slug: "apple", name: "Apple", logoUrl: logo("apple.com"), description: "Think Different", category: "Elektronik", dealCount: 5, websiteUrl: "https://apple.com" },
+  { id: "11", slug: "samsung", name: "Samsung", logoUrl: logo("samsung.com"), description: "Do What You Can't", category: "Elektronik", dealCount: 13, websiteUrl: "https://samsung.com" },
+  { id: "12", slug: "sephora", name: "Sephora", logoUrl: logo("sephora.com"), description: "Beauty for all", category: "Güzellik", dealCount: 10, websiteUrl: "https://sephora.com.tr" },
+  { id: "13", slug: "mango", name: "Mango", logoUrl: logo("mango.com"), description: "Mediterranean inspirations", category: "Moda", dealCount: 7, websiteUrl: "https://mango.com" },
+  { id: "14", slug: "koton", name: "Koton", logoUrl: logo("koton.com"), description: "Giyimde yeni nesil", category: "Moda", dealCount: 14, websiteUrl: "https://koton.com" },
+  { id: "15", slug: "boyner", name: "Boyner", logoUrl: logo("boyner.com.tr"), description: "Yaşama keyif kat", category: "Moda", dealCount: 9, websiteUrl: "https://boyner.com.tr" },
+  { id: "16", slug: "dyson", name: "Dyson", logoUrl: logo("dyson.com"), description: "Mühendislik, teknoloji ve tasarımda öncü", category: "Ev & Yaşam", dealCount: 4, websiteUrl: "https://dyson.com.tr" },
 ];
