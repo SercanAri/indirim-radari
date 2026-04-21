@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  ACTIVE
+  ENDED
+  CANCELLED
+}
+
+enum NotificationType {
+  CAMPAIGN_STARTED
+  CAMPAIGN_ENDING
+  CAMPAIGN_ENDED
+  PRICE_DROP
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+
+  follows         Follow[]
+  notifications   Notification[]
+  savedCampaigns  SavedCampaign[]
+}
+
+model Brand {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String
+  logo        String?
+  description String?
+  websiteUrl  String?
+  xHandle     String?
+
+  campaigns Campaign[]
+  followers Follow[]
+}
+
+model Campaign {
+  id              String         @id @default(cuid())
+  brandId         String
+  title           String
+  description     String?
+  discountPercent Int
+  startDate       DateTime
+  endDate         DateTime
+  category        String
+  imageUrl        String?
+  ctaUrl          String?
+  status          CampaignStatus @default(DRAFT)
+  createdAt       DateTime       @default(now())
+
+  brand          Brand           @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  notifications  Notification[]
+  savedBy        SavedCampaign[]
+
+  @@index([brandId])
+  @@index([status])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model Follow {
+  userId    String
+  brandId   String
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  brand Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@id([userId, brandId])
+}
+
+model Notification {
+  id         String           @id @default(cuid())
+  userId     String
+  campaignId String
+  type       NotificationType
+  sentAt     DateTime         @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([campaignId])
+}
+
+model SavedCampaign {
+  userId     String
+  campaignId String
+  savedAt    DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@id([userId, campaignId])
+}
