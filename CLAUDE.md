@@ -15,7 +15,7 @@ Türkiye pazarındaki büyük markaların indirim ve kampanyalarını takip eden
 - **Deployment:** Vercel
 
 ## Tasarım Sistemi
-- **Primary renk:** Elektrik moru `#7C3AED`
+- **Primary renk:** İndirim kırmızısı `#E11D48` (rose-600) — SALE klasiği, modern shade
 - **Accent:** Mercan turuncusu `#FF6B35`
 - **Success:** `#10B981`, **Danger:** `#EF4444`
 - **Tipografi:** Başlıklar için Clash Display, body için Inter

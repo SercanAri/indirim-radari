@@ -30,8 +30,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Inline script runs before React hydration to prevent FOUC.
+  // Reads persisted theme (or system preference) and sets <html class="dark"> early.
+  const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(t==='dark')document.documentElement.classList.add('dark');}catch(e){}})();`;
+
   return (
-    <html lang="tr" className={`${inter.variable} h-full antialiased`}>
+    <html lang="tr" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

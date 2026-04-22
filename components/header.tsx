@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { NavLink } from "@/types";
 import Logo from "./logo";
+import ThemeToggle from "./theme-toggle";
 
 const navLinks: NavLink[] = [
   { label: "Kampanyalar", href: "/kampanyalar" },
@@ -61,6 +62,8 @@ export default function Header() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
             </svg>
           </button>
+
+          <ThemeToggle />
 
           <a
             href="/giris"

@@ -102,9 +102,9 @@ const SLIDES: Slide[] = [
     endsAt: addHours(14),
     ctaLabel: "Güzelliğe Göz At",
     ctaHref: "#",
-    accent: "#7C3AED",
-    bgFrom: "#2D1B4E",
-    bgTo: "#7C3AED",
+    accent: "#DB2777",
+    bgFrom: "#500724",
+    bgTo: "#DB2777",
     imageUrl: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&h=900&fit=crop&q=85",
   },
 ];

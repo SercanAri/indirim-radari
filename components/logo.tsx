@@ -17,7 +17,7 @@ export default function Logo({ size = "md", variant = "default", className = "" 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {/* Mark — gradient badge with down arrow + % dot */}
-      <div className={`relative flex ${s.mark} items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[#9f67ff] shadow-md shadow-[var(--color-primary)]/30`}>
+      <div className={`relative flex ${s.mark} items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[#ff4778] shadow-md shadow-[var(--color-primary)]/30`}>
         <svg viewBox="0 0 24 24" className={`${s.icon} text-white`} fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M12 4v13" />
           <path d="M6 12l6 7 6-7" />
