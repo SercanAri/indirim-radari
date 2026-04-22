@@ -80,9 +80,6 @@ function BrandChip({ brand }: { brand: MarqueeBrand }) {
 }
 
 export default function BrandsMarquee() {
-  // Duplicate for seamless loop
-  const loop = [...MARQUEE_BRANDS, ...MARQUEE_BRANDS];
-
   return (
     <section className="relative w-full overflow-hidden border-y border-[var(--border)] bg-[var(--surface)] py-7 sm:py-9">
       {/* Header */}
@@ -109,10 +106,18 @@ export default function BrandsMarquee() {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-[var(--surface)] to-transparent sm:w-32" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-[var(--surface)] to-transparent sm:w-32" />
 
+        {/* Seamless loop: render once for a11y/SEO (readable set) + a duplicate
+            that's aria-hidden so the scroll animation has content to wrap
+            around without screen readers or crawlers seeing 40 brands. */}
         <div className="animate-marquee flex gap-3 sm:gap-4">
-          {loop.map((brand, i) => (
-            <BrandChip key={`${brand.slug}-${i}`} brand={brand} />
+          {MARQUEE_BRANDS.map((brand) => (
+            <BrandChip key={brand.slug} brand={brand} />
           ))}
+          <div aria-hidden="true" className="contents">
+            {MARQUEE_BRANDS.map((brand) => (
+              <BrandChip key={`dup-${brand.slug}`} brand={brand} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
