@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Deal } from "@/types";
 import BrandLogo from "./brand-logo";
 
@@ -16,12 +17,18 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
 
   return (
     <article
-      className={`group flex flex-col rounded-2xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer shrink-0 w-56 sm:w-64 ${
+      className={`group relative flex flex-col rounded-2xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl shrink-0 w-56 sm:w-64 focus-within:ring-2 focus-within:ring-[var(--color-primary)]/40 ${
         isLastHours
           ? "border-[var(--color-danger)]/30 bg-[var(--background)] hover:border-[var(--color-danger)]/60"
           : "border-[var(--border)] bg-[var(--background)] hover:border-[var(--color-primary)]/40"
       }`}
     >
+      {/* Overlay link — tüm kart clickable (iç butonlar z-10 ile üstte kalır) */}
+      <Link
+        href={`/kampanyalar#deal-${deal.id}`}
+        className="absolute inset-0 z-0"
+        aria-label={`${deal.brand} — ${deal.title}, %${deal.discount} indirim`}
+      />
       {/* Image */}
       <div className="relative h-36 w-full overflow-hidden bg-[var(--surface)]">
         {deal.imageUrl ? (

@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import HeroSlider from "@/components/hero-slider";
+import SearchHero from "@/components/search-hero";
 import ValueProps from "@/components/value-props";
 import BrandsMarquee from "@/components/brands-marquee";
 import TodayDeals from "@/components/today-deals";
@@ -19,6 +20,7 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSlider />
+        <SearchHero />
         <ValueProps />
         <BrandsMarquee />
         <TodayDeals />
