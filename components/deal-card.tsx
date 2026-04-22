@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Deal } from "@/types";
+import BrandLogo from "./brand-logo";
 
 interface DealCardProps {
   deal: Deal;
@@ -33,13 +34,11 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <Image
-              src={deal.logoUrl}
-              alt={deal.brand}
-              width={80}
-              height={80}
-              className="object-contain"
-              unoptimized
+            <BrandLogo
+              name={deal.brand}
+              logoUrl={deal.logoUrl}
+              size={80}
+              radius={16}
             />
           </div>
         )}
@@ -78,15 +77,13 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
       <div className="flex flex-col gap-2 p-3">
         {/* Brand */}
         <div className="flex items-center gap-2">
-          <div className="relative h-5 w-5 overflow-hidden rounded-md bg-white shadow-sm shrink-0">
-            <Image
-              src={deal.logoUrl}
-              alt={deal.brand}
-              fill
-              className="object-contain p-0.5"
-              unoptimized
-            />
-          </div>
+          <BrandLogo
+            name={deal.brand}
+            logoUrl={deal.logoUrl}
+            size={20}
+            radius={6}
+            padding={2}
+          />
           <span className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] truncate">
             {deal.brand}
           </span>

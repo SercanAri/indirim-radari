@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Mail, Lock, Eye, ArrowRight } from "lucide-react";
+import Logo from "@/components/logo";
 
 export const metadata: Metadata = {
-  title: "Giriş Yap — İndirim Radarı",
+  title: "Giriş Yap — indi.",
   description: "Hesabına giriş yap ve favori markalarının kampanyalarını takip et.",
 };
 
@@ -17,12 +19,9 @@ export default function GirisPage() {
 
       <div className="relative w-full max-w-sm">
         {/* Logo */}
-        <a href="/" className="mb-8 flex items-center justify-center gap-2">
-          <span className="text-2xl font-bold text-[var(--color-primary)]">İndirim</span>
-          <span className="rounded-md bg-[var(--color-accent)] px-2 py-0.5 text-sm font-bold text-white">
-            RADAR
-          </span>
-        </a>
+        <Link href="/" className="mb-8 flex items-center justify-center" aria-label="indi anasayfa">
+          <Logo size="lg" />
+        </Link>
 
         {/* Card */}
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-6 shadow-xl">
@@ -55,9 +54,9 @@ export default function GirisPage() {
                 <label className="text-xs font-semibold text-[var(--foreground)]">
                   Şifre
                 </label>
-                <a href="/sifremi-unuttum" className="text-xs text-[var(--color-primary)] hover:underline">
+                <Link href="/sifremi-unuttum" className="text-xs text-[var(--color-primary)] hover:underline">
                   Şifremi unuttum
-                </a>
+                </Link>
               </div>
               <div className="flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 transition-colors focus-within:border-[var(--color-primary)]">
                 <Lock className="h-4 w-4 shrink-0 text-[var(--muted)]" />
@@ -104,9 +103,9 @@ export default function GirisPage() {
         {/* Register link */}
         <p className="mt-5 text-center text-sm text-[var(--muted)]">
           Hesabın yok mu?{" "}
-          <a href="/kayit" className="font-semibold text-[var(--color-primary)] hover:underline">
+          <Link href="/kayit" className="font-semibold text-[var(--color-primary)] hover:underline">
             Ücretsiz kayıt ol
-          </a>
+          </Link>
         </p>
       </div>
     </div>

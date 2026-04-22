@@ -1,13 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
+import BrandLogo from "./brand-logo";
 
 interface Slide {
   id: number;
   brand: string;
-  logo: string;
+  logoSlug: string;
+  tagline: string;
   title: string;
   subtitle: string;
   discount: number;
@@ -17,7 +20,7 @@ interface Slide {
   accent: string;
   bgFrom: string;
   bgTo: string;
-  visual: string;
+  imageUrl: string;
 }
 
 const now = new Date();
@@ -27,77 +30,82 @@ const SLIDES: Slide[] = [
   {
     id: 1,
     brand: "Trendyol",
-    logo: "🛍️",
-    title: "Büyük Efsane İndirimi",
-    subtitle: "Milyonlarca üründe kaçırılmaz fırsatlar seni bekliyor",
+    logoSlug: "trendyol",
+    tagline: "Efsane Hafta • Başladı",
+    title: "Cüzdanın Rahatladı, Stokçular Panikledi",
+    subtitle: "Milyon ürün, tek sepet. Fiyatlar o kadar düştü ki gravitasyon resmen iş başında.",
     discount: 70,
     endsAt: addHours(11),
-    ctaLabel: "Hemen Alışveriş Yap",
+    ctaLabel: "Hemen Sepete Koş",
     ctaHref: "#",
     accent: "#F27A1A",
     bgFrom: "#F27A1A",
     bgTo: "#FF6B35",
-    visual: "🛒",
+    imageUrl: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900&h=900&fit=crop&q=85",
   },
   {
     id: 2,
     brand: "Hepsiburada",
-    logo: "🟠",
-    title: "Teknoloji Festivali",
-    subtitle: "Telefon, laptop, TV ve daha fazlasında süper fırsatlar",
+    logoSlug: "hepsiburada",
+    tagline: "Teknoloji Festivali",
+    title: "Robotlar Bile Bu Fiyatlara İnanamıyor",
+    subtitle: "Telefon, laptop, kulaklık… AI kendi fiyatını pazarlık ederken biz iskonto uyguladık.",
     discount: 55,
     endsAt: addHours(7),
-    ctaLabel: "Fırsatları Keşfet",
+    ctaLabel: "Fırsatları Tara",
     ctaHref: "#",
     accent: "#FF6000",
     bgFrom: "#FF6000",
     bgTo: "#FF8C42",
-    visual: "📱",
+    imageUrl: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=900&h=900&fit=crop&q=85",
   },
   {
     id: 3,
     brand: "LC Waikiki",
-    logo: "👕",
-    title: "Yaz Sezonu Sonu",
-    subtitle: "Tüm yazlık ürünlerde sezon sonu büyük indirim",
+    logoSlug: "lcwaikiki",
+    tagline: "Sezon Finali",
+    title: "Gardırobun Yenilendi, Maaşın Hayatta",
+    subtitle: "Moda takvimi baştan yazıldı: bu fiyatlara hem yaz hem kış alınır, hem de pişman olunmaz.",
     discount: 60,
     endsAt: addHours(18),
-    ctaLabel: "Koleksiyonu Gör",
+    ctaLabel: "Koleksiyonu Gez",
     ctaHref: "#",
     accent: "#0057A8",
     bgFrom: "#0057A8",
     bgTo: "#1976D2",
-    visual: "👗",
+    imageUrl: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&h=900&fit=crop&q=85",
   },
   {
     id: 4,
     brand: "MediaMarkt",
-    logo: "📺",
-    title: "Kırmızı Fiyat Günleri",
-    subtitle: "Elektronik ve beyaz eşyada yılın en büyük indirimi",
+    logoSlug: "mediamarkt",
+    tagline: "Kırmızı Fiyat Günleri",
+    title: "Fiyatlar Bodrum Kata İndi, Asansör Bozuk",
+    subtitle: "TV, buzdolabı, kahve makinesi — Mars'a roket göndermiyoruz ama bu fiyatlar uçuyor.",
     discount: 45,
     endsAt: addHours(5),
-    ctaLabel: "Ürünleri İncele",
+    ctaLabel: "Son 5 Saati Yakala",
     ctaHref: "#",
     accent: "#CC0000",
     bgFrom: "#CC0000",
     bgTo: "#E53935",
-    visual: "🖥️",
+    imageUrl: "https://images.unsplash.com/photo-1593359677879-a4bb92f4834c?w=900&h=900&fit=crop&q=85",
   },
   {
     id: 5,
     brand: "Sephora",
-    logo: "💄",
-    title: "Güzellik Haftası",
-    subtitle: "Parfüm, cilt bakımı ve makyajda özel fiyatlar",
+    logoSlug: "sephora",
+    tagline: "Güzellik Haftası",
+    title: "Aynanın İltifat Modu Açıldı",
+    subtitle: "Ruj seni, seni parfüm seçer. Bu haftaki fiyatlara görünmek artık daha ucuz.",
     discount: 40,
     endsAt: addHours(14),
-    ctaLabel: "Güzelliği Keşfet",
+    ctaLabel: "Güzelliğe Göz At",
     ctaHref: "#",
-    accent: "#1A1A2E",
-    bgFrom: "#1A1A2E",
+    accent: "#7C3AED",
+    bgFrom: "#2D1B4E",
     bgTo: "#7C3AED",
-    visual: "✨",
+    imageUrl: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&h=900&fit=crop&q=85",
   },
 ];
 
@@ -191,8 +199,11 @@ function ProgressBar({
 
   useEffect(() => {
     if (!active) {
+      // Reset when this slide becomes inactive so it starts from 0 next time.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setWidth(0);
       startRef.current = null;
+      pausedAtRef.current = 0;
       return;
     }
 
@@ -316,54 +327,79 @@ function SlidePanel({ slide }: { slide: Slide }) {
       className="relative flex-[0_0_100%] min-w-0 overflow-hidden"
       style={{
         background: `linear-gradient(135deg, ${slide.bgFrom}dd, ${slide.bgTo}aa)`,
-        minHeight: "clamp(360px, 50vw, 500px)",
+        minHeight: "clamp(420px, 54vw, 540px)",
       }}
     >
+      {/* Mobile background image (blurred, behind content) */}
+      <div className="absolute inset-0 sm:hidden">
+        <Image
+          src={slide.imageUrl}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-20"
+          priority={slide.id === 1}
+        />
+      </div>
+
       {/* Background glow */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-40"
         style={{
-          background: `radial-gradient(ellipse 80% 80% at 70% 50%, ${slide.accent}88, transparent)`,
+          background: `radial-gradient(ellipse 80% 80% at 75% 50%, ${slide.accent}88, transparent)`,
         }}
       />
 
-      {/* Glassmorphism card (desktop) */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-start justify-center gap-0 px-6 py-10 sm:flex-row sm:items-center sm:px-10 sm:gap-8"
-        style={{ minHeight: "clamp(360px, 50vw, 500px)" }}>
-
+      {/* Content layer */}
+      <div
+        className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-start justify-center gap-0 px-6 py-10 sm:flex-row sm:items-center sm:px-10 sm:gap-10"
+        style={{ minHeight: "clamp(420px, 54vw, 540px)" }}
+      >
         {/* Left: content */}
         <div className="flex flex-1 flex-col gap-4 sm:gap-5">
-          {/* Brand badge */}
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">{slide.logo}</span>
-            <span className="rounded-full bg-white/20 backdrop-blur-sm border border-white/20 px-3 py-1 text-xs font-bold text-white tracking-wide uppercase">
-              {slide.brand}
-            </span>
+          {/* Brand badge with real logo */}
+          <div className="flex items-center gap-2.5">
+            <BrandLogo
+              name={slide.brand}
+              logoUrl={`/brands/${slide.logoSlug}.svg`}
+              size={36}
+              radius={10}
+              padding={5}
+              className="shadow-lg"
+            />
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-white leading-tight">{slide.brand}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-white/70">
+                {slide.tagline}
+              </span>
+            </div>
           </div>
 
           {/* Discount */}
           <div
-            className="font-bold leading-none text-white"
-            style={{ fontSize: "clamp(56px, 8vw, 72px)" }}
+            className="font-black leading-none text-white drop-shadow-lg"
+            style={{ fontSize: "clamp(60px, 9vw, 84px)" }}
           >
             %{slide.discount}
-            <span className="ml-2 text-2xl sm:text-4xl font-semibold opacity-80">İNDİRİM</span>
+            <span className="ml-2 text-2xl sm:text-4xl font-bold opacity-90 tracking-tight">
+              İNDİRİM
+            </span>
           </div>
 
           {/* Title + subtitle */}
           <div>
-            <h2 className="text-xl sm:text-3xl font-bold text-white leading-tight">
+            <h2 className="text-xl sm:text-3xl font-bold text-white leading-tight max-w-xl">
               {slide.title}
             </h2>
-            <p className="mt-1 text-sm sm:text-base text-white/70 max-w-sm">
+            <p className="mt-2 text-sm sm:text-base text-white/80 max-w-md leading-relaxed">
               {slide.subtitle}
             </p>
           </div>
 
           {/* Countdown */}
           <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
-              Kampanya bitimine kalan
+            <span className="text-xs font-semibold uppercase tracking-widest text-white/60">
+              Biter bitmez hatırlatıyoruz
             </span>
             <SlideCountdown endsAt={slide.endsAt} />
           </div>
@@ -371,7 +407,7 @@ function SlidePanel({ slide }: { slide: Slide }) {
           {/* CTA */}
           <a
             href={slide.ctaHref}
-            className="mt-1 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold transition-all hover:scale-105 hover:shadow-lg"
+            className="mt-1 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
             style={{ color: slide.accent }}
           >
             {slide.ctaLabel}
@@ -381,27 +417,53 @@ function SlidePanel({ slide }: { slide: Slide }) {
           </a>
         </div>
 
-        {/* Right: visual */}
+        {/* Right: real photo visual (desktop) */}
         <div className="hidden sm:flex flex-1 items-center justify-center">
-          {/* Glassmorphism panel */}
-          <div
-            className="relative flex items-center justify-center rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-10 shadow-2xl"
-            style={{ width: 320, height: 320 }}
-          >
-            {/* Inner glow */}
+          <div className="relative">
+            {/* Decorative floating discount badge */}
             <div
-              className="absolute inset-0 rounded-3xl opacity-40"
-              style={{ background: `radial-gradient(circle at 50% 50%, ${slide.accent}66, transparent 70%)` }}
-            />
-            <span className="relative z-10 text-[140px] leading-none select-none drop-shadow-2xl">
-              {slide.visual}
-            </span>
-          </div>
-        </div>
+              className="absolute -top-4 -left-4 z-20 rotate-[-8deg] rounded-2xl bg-white px-4 py-2 shadow-2xl"
+            >
+              <div className="text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)]">
+                En Düşük
+              </div>
+              <div className="text-2xl font-black" style={{ color: slide.accent }}>
+                %{slide.discount}
+              </div>
+            </div>
 
-        {/* Mobile visual (small, top-right corner) */}
-        <div className="absolute right-4 top-4 text-6xl opacity-30 sm:hidden select-none">
-          {slide.visual}
+            {/* Main image — rounded card with inner glow */}
+            <div
+              className="relative overflow-hidden rounded-3xl border-4 border-white/20 shadow-2xl"
+              style={{ width: 360, height: 360 }}
+            >
+              <Image
+                src={slide.imageUrl}
+                alt={slide.title}
+                fill
+                sizes="360px"
+                className="object-cover"
+                priority={slide.id === 1}
+              />
+              {/* Color wash overlay */}
+              <div
+                className="absolute inset-0 mix-blend-multiply opacity-20"
+                style={{ background: `linear-gradient(135deg, ${slide.bgFrom}, ${slide.bgTo})` }}
+              />
+              {/* Inner rim */}
+              <div className="absolute inset-0 rounded-3xl shadow-[inset_0_0_60px_rgba(0,0,0,0.35)]" />
+            </div>
+
+            {/* Floating countdown badge */}
+            <div className="absolute -bottom-4 -right-4 z-20 rotate-[6deg] rounded-2xl bg-black/80 backdrop-blur-md px-4 py-2.5 shadow-2xl border border-white/10">
+              <div className="text-[10px] font-semibold uppercase tracking-widest text-white/60">
+                🔥 Gözlem altında
+              </div>
+              <div className="text-sm font-bold text-white">
+                Fiyatlar düşmeye devam
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

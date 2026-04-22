@@ -22,6 +22,7 @@ export interface Brand {
   category: string;
   dealCount: number;
   websiteUrl: string;
+  color: string;
 }
 
 export interface Category {
@@ -30,6 +31,7 @@ export interface Category {
   icon: string;
   dealCount: number;
   slug: string;
+  imageUrl: string;
 }
 
 export interface NavLink {

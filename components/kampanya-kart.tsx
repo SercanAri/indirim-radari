@@ -112,8 +112,8 @@ function FlipUnit({ value, label }: { value: string; label: string }) {
   );
 }
 
-function Countdown({ target, variant }: { target: Date; variant: "yaklaşan" | "bitiyor" }) {
-  const [time, setTime] = useState<TimeLeft>(calcTimeLeft(target));
+function Countdown({ target }: { target: Date }) {
+  const [time, setTime] = useState<TimeLeft>(() => calcTimeLeft(target));
 
   useEffect(() => {
     const id = setInterval(() => setTime(calcTimeLeft(target)), 1_000);
@@ -146,8 +146,18 @@ function DealProgress({
   colorClass: string;
 }) {
   const total = endsAt.getTime() - startsAt.getTime();
-  const elapsed = Date.now() - startsAt.getTime();
-  const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+  // Date.now() is impure — compute the percentage client-side only.
+  const [pct, setPct] = useState(0);
+
+  useEffect(() => {
+    const compute = () => {
+      const elapsed = Date.now() - startsAt.getTime();
+      setPct(Math.min(100, Math.max(0, (elapsed / total) * 100)));
+    };
+    compute();
+    const id = setInterval(compute, 60_000);
+    return () => clearInterval(id);
+  }, [startsAt, total]);
 
   return (
     <div className="h-1 w-full overflow-hidden rounded-full bg-[var(--border)]">
@@ -270,7 +280,7 @@ export default function KampanyaKart({
           {variant === "yaklaşan" && (
             <>
               <p className="text-[11px] text-[var(--muted)]">Başlamasına kalan:</p>
-              <Countdown target={startsAt} variant="yaklaşan" />
+              <Countdown target={startsAt} />
               <button
                 className={`mt-1 w-full rounded-full border py-1.5 text-xs font-semibold transition-colors ${cfg.badgeClass} hover:bg-blue-500 hover:text-white hover:border-blue-500`}
               >
@@ -284,7 +294,7 @@ export default function KampanyaKart({
               <p className="text-[11px] font-semibold text-[var(--color-danger)]">
                 ⚡ Bitmesine kalan:
               </p>
-              <Countdown target={endsAt} variant="bitiyor" />
+              <Countdown target={endsAt} />
               <button
                 className="mt-1 w-full rounded-full bg-[var(--color-danger)] py-1.5 text-xs font-bold text-white transition-opacity hover:opacity-90"
               >

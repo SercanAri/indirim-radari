@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { brands } from "@/lib/mock-data";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import BrandLogo from "@/components/brand-logo";
 import { ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -46,15 +46,13 @@ export default function BrandsPage() {
                   >
                     {/* Logo + name */}
                     <div className="flex items-center gap-3">
-                      <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white shadow-sm shrink-0">
-                        <Image
-                          src={brand.logoUrl}
-                          alt={brand.name}
-                          fill
-                          className="object-contain p-1.5"
-                          unoptimized
-                        />
-                      </div>
+                      <BrandLogo
+                        name={brand.name}
+                        logoUrl={brand.logoUrl}
+                        size={48}
+                        radius={12}
+                        brandColor={brand.color}
+                      />
                       <div className="min-w-0">
                         <p className="font-semibold text-[var(--foreground)] truncate">
                           {brand.name}

@@ -6,13 +6,13 @@ const addHours = (date: Date, hours: number) =>
 const addDays = (date: Date, days: number) =>
   new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
 
-const logo = (domain: string) => `https://logo.clearbit.com/${domain}`;
+const logo = (slug: string) => `/brands/${slug}.svg`;
 
 export const todayDeals: Deal[] = [
   {
     id: "1",
     brand: "Nike",
-    logoUrl: logo("nike.com"),
+    logoUrl: logo("nike"),
     title: "Yaz Koleksiyonu %40 İndirim",
     discount: 40,
     originalPrice: 2499,
@@ -26,7 +26,7 @@ export const todayDeals: Deal[] = [
   {
     id: "2",
     brand: "Zara",
-    logoUrl: logo("zara.com"),
+    logoUrl: logo("zara"),
     title: "Sezon Sonu Büyük İndirim",
     discount: 50,
     originalPrice: 1800,
@@ -40,7 +40,7 @@ export const todayDeals: Deal[] = [
   {
     id: "3",
     brand: "Teknosa",
-    logoUrl: logo("teknosa.com"),
+    logoUrl: logo("teknosa"),
     title: "Elektronik Ürünlerde %30 İndirim",
     discount: 30,
     originalPrice: 15000,
@@ -53,7 +53,7 @@ export const todayDeals: Deal[] = [
   {
     id: "4",
     brand: "Boyner",
-    logoUrl: logo("boyner.com.tr"),
+    logoUrl: logo("boyner"),
     title: "2 Al 1 Öde Kampanyası",
     discount: 50,
     originalPrice: 3200,
@@ -66,7 +66,7 @@ export const todayDeals: Deal[] = [
   {
     id: "5",
     brand: "MediaMarkt",
-    logoUrl: logo("mediamarkt.com.tr"),
+    logoUrl: logo("mediamarkt"),
     title: "Laptop Fırsatları",
     discount: 25,
     originalPrice: 32000,
@@ -79,7 +79,7 @@ export const todayDeals: Deal[] = [
   {
     id: "6",
     brand: "H&M",
-    logoUrl: logo("hm.com"),
+    logoUrl: logo("hm"),
     title: "Erkek Giyimde %35 İndirim",
     discount: 35,
     originalPrice: 1200,
@@ -96,7 +96,7 @@ export const upcomingDeals: Deal[] = [
   {
     id: "7",
     brand: "Apple",
-    logoUrl: logo("apple.com"),
+    logoUrl: logo("apple"),
     title: "Back to School Kampanyası",
     discount: 15,
     originalPrice: 45000,
@@ -109,7 +109,7 @@ export const upcomingDeals: Deal[] = [
   {
     id: "8",
     brand: "LC Waikiki",
-    logoUrl: logo("lcwaikiki.com"),
+    logoUrl: logo("lcwaikiki"),
     title: "Okul Sezonu İndirimi",
     discount: 45,
     originalPrice: 800,
@@ -122,7 +122,7 @@ export const upcomingDeals: Deal[] = [
   {
     id: "9",
     brand: "Adidas",
-    logoUrl: logo("adidas.com"),
+    logoUrl: logo("adidas"),
     title: "Yeni Sezon Koleksiyonu",
     discount: 20,
     originalPrice: 3500,
@@ -135,7 +135,7 @@ export const upcomingDeals: Deal[] = [
   {
     id: "10",
     brand: "Samsung",
-    logoUrl: logo("samsung.com"),
+    logoUrl: logo("samsung"),
     title: "TV & Beyaz Eşya Fırsatları",
     discount: 35,
     originalPrice: 28000,
@@ -143,7 +143,7 @@ export const upcomingDeals: Deal[] = [
     startsAt: addDays(now, 1),
     endsAt: addDays(now, 4),
     category: "Elektronik",
-    imageUrl: "https://images.unsplash.com/photo-1593359677879-a4bb92f4834c?w=400&h=300&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=400&h=300&fit=crop",
   },
 ];
 
@@ -151,7 +151,7 @@ export const lastHoursDeals: Deal[] = [
   {
     id: "11",
     brand: "Mango",
-    logoUrl: logo("mango.com"),
+    logoUrl: logo("mango"),
     title: "Son Saatler: %60 İndirim",
     discount: 60,
     originalPrice: 2200,
@@ -165,7 +165,7 @@ export const lastHoursDeals: Deal[] = [
   {
     id: "12",
     brand: "Dyson",
-    logoUrl: logo("dyson.com"),
+    logoUrl: logo("dyson"),
     title: "Süpürge & Saç Bakım Fırsatı",
     discount: 30,
     originalPrice: 12000,
@@ -179,7 +179,7 @@ export const lastHoursDeals: Deal[] = [
   {
     id: "13",
     brand: "Sephora",
-    logoUrl: logo("sephora.com"),
+    logoUrl: logo("sephora"),
     title: "Kozmetik Kampanyası Bitiyor",
     discount: 40,
     originalPrice: 950,
@@ -193,7 +193,7 @@ export const lastHoursDeals: Deal[] = [
   {
     id: "14",
     brand: "Koton",
-    logoUrl: logo("koton.com"),
+    logoUrl: logo("koton"),
     title: "Kadın Giyim Son Fırsat",
     discount: 55,
     originalPrice: 1500,
@@ -207,31 +207,87 @@ export const lastHoursDeals: Deal[] = [
 ];
 
 export const categories: Category[] = [
-  { id: "1", name: "Moda", icon: "shirt", dealCount: 48, slug: "moda" },
-  { id: "2", name: "Elektronik", icon: "smartphone", dealCount: 32, slug: "elektronik" },
-  { id: "3", name: "Spor", icon: "dumbbell", dealCount: 21, slug: "spor" },
-  { id: "4", name: "Ev & Yaşam", icon: "sofa", dealCount: 19, slug: "ev-yasam" },
-  { id: "5", name: "Güzellik", icon: "sparkles", dealCount: 27, slug: "guzellik" },
-  { id: "6", name: "Kitap & Kırtasiye", icon: "book-open", dealCount: 14, slug: "kitap" },
-  { id: "7", name: "Oyun & Hobi", icon: "gamepad-2", dealCount: 11, slug: "oyun-hobi" },
-  { id: "8", name: "Seyahat", icon: "plane", dealCount: 9, slug: "seyahat" },
+  {
+    id: "1",
+    name: "Moda",
+    icon: "shirt",
+    dealCount: 48,
+    slug: "moda",
+    imageUrl: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "2",
+    name: "Elektronik",
+    icon: "smartphone",
+    dealCount: 32,
+    slug: "elektronik",
+    imageUrl: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "3",
+    name: "Spor",
+    icon: "dumbbell",
+    dealCount: 21,
+    slug: "spor",
+    imageUrl: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "4",
+    name: "Ev & Yaşam",
+    icon: "sofa",
+    dealCount: 19,
+    slug: "ev-yasam",
+    imageUrl: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "5",
+    name: "Güzellik",
+    icon: "sparkles",
+    dealCount: 27,
+    slug: "guzellik",
+    imageUrl: "https://images.unsplash.com/photo-1700237497170-2d85a2a74087?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "6",
+    name: "Kitap & Kırtasiye",
+    icon: "book-open",
+    dealCount: 14,
+    slug: "kitap",
+    imageUrl: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "7",
+    name: "Oyun & Hobi",
+    icon: "gamepad-2",
+    dealCount: 11,
+    slug: "oyun-hobi",
+    imageUrl: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&h=1000&fit=crop&q=85",
+  },
+  {
+    id: "8",
+    name: "Seyahat",
+    icon: "plane",
+    dealCount: 9,
+    slug: "seyahat",
+    imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=1000&fit=crop&q=85",
+  },
 ];
 
 export const brands: Brand[] = [
-  { id: "1", slug: "trendyol", name: "Trendyol", logoUrl: logo("trendyol.com"), description: "Türkiye'nin en büyük e-ticaret platformu", category: "E-Ticaret", dealCount: 24, websiteUrl: "https://trendyol.com" },
-  { id: "2", slug: "hepsiburada", name: "Hepsiburada", logoUrl: logo("hepsiburada.com"), description: "Her şey burada, her fiyata uygun", category: "E-Ticaret", dealCount: 18, websiteUrl: "https://hepsiburada.com" },
-  { id: "3", slug: "nike", name: "Nike", logoUrl: logo("nike.com"), description: "Just Do It — Spor giyim ve ayakkabı", category: "Spor", dealCount: 12, websiteUrl: "https://nike.com" },
-  { id: "4", slug: "adidas", name: "Adidas", logoUrl: logo("adidas.com"), description: "Impossible is Nothing", category: "Spor", dealCount: 9, websiteUrl: "https://adidas.com" },
-  { id: "5", slug: "zara", name: "Zara", logoUrl: logo("zara.com"), description: "Moda trendlerini uygun fiyatla sun", category: "Moda", dealCount: 15, websiteUrl: "https://zara.com" },
-  { id: "6", slug: "lc-waikiki", name: "LC Waikiki", logoUrl: logo("lcwaikiki.com"), description: "Herkes için moda", category: "Moda", dealCount: 21, websiteUrl: "https://lcwaikiki.com" },
-  { id: "7", slug: "hm", name: "H&M", logoUrl: logo("hm.com"), description: "Fashion and quality at the best price", category: "Moda", dealCount: 11, websiteUrl: "https://hm.com" },
-  { id: "8", slug: "mediamarkt", name: "MediaMarkt", logoUrl: logo("mediamarkt.com.tr"), description: "Teknoloji ve elektronikte güvenilir adres", category: "Elektronik", dealCount: 16, websiteUrl: "https://mediamarkt.com.tr" },
-  { id: "9", slug: "teknosa", name: "Teknosa", logoUrl: logo("teknosa.com"), description: "Teknoloji hayatı kolaylaştırır", category: "Elektronik", dealCount: 8, websiteUrl: "https://teknosa.com" },
-  { id: "10", slug: "apple", name: "Apple", logoUrl: logo("apple.com"), description: "Think Different", category: "Elektronik", dealCount: 5, websiteUrl: "https://apple.com" },
-  { id: "11", slug: "samsung", name: "Samsung", logoUrl: logo("samsung.com"), description: "Do What You Can't", category: "Elektronik", dealCount: 13, websiteUrl: "https://samsung.com" },
-  { id: "12", slug: "sephora", name: "Sephora", logoUrl: logo("sephora.com"), description: "Beauty for all", category: "Güzellik", dealCount: 10, websiteUrl: "https://sephora.com.tr" },
-  { id: "13", slug: "mango", name: "Mango", logoUrl: logo("mango.com"), description: "Mediterranean inspirations", category: "Moda", dealCount: 7, websiteUrl: "https://mango.com" },
-  { id: "14", slug: "koton", name: "Koton", logoUrl: logo("koton.com"), description: "Giyimde yeni nesil", category: "Moda", dealCount: 14, websiteUrl: "https://koton.com" },
-  { id: "15", slug: "boyner", name: "Boyner", logoUrl: logo("boyner.com.tr"), description: "Yaşama keyif kat", category: "Moda", dealCount: 9, websiteUrl: "https://boyner.com.tr" },
-  { id: "16", slug: "dyson", name: "Dyson", logoUrl: logo("dyson.com"), description: "Mühendislik, teknoloji ve tasarımda öncü", category: "Ev & Yaşam", dealCount: 4, websiteUrl: "https://dyson.com.tr" },
+  { id: "1", slug: "trendyol", name: "Trendyol", logoUrl: logo("trendyol"), description: "Türkiye'nin en büyük e-ticaret platformu", category: "E-Ticaret", dealCount: 24, websiteUrl: "https://trendyol.com", color: "#F27A1A" },
+  { id: "2", slug: "hepsiburada", name: "Hepsiburada", logoUrl: logo("hepsiburada"), description: "Her şey burada, her fiyata uygun", category: "E-Ticaret", dealCount: 18, websiteUrl: "https://hepsiburada.com", color: "#FF6000" },
+  { id: "3", slug: "nike", name: "Nike", logoUrl: logo("nike"), description: "Just Do It — Spor giyim ve ayakkabı", category: "Spor", dealCount: 12, websiteUrl: "https://nike.com", color: "#111111" },
+  { id: "4", slug: "adidas", name: "Adidas", logoUrl: logo("adidas"), description: "Impossible is Nothing", category: "Spor", dealCount: 9, websiteUrl: "https://adidas.com", color: "#000000" },
+  { id: "5", slug: "zara", name: "Zara", logoUrl: logo("zara"), description: "Moda trendlerini uygun fiyatla sun", category: "Moda", dealCount: 15, websiteUrl: "https://zara.com", color: "#000000" },
+  { id: "6", slug: "lc-waikiki", name: "LC Waikiki", logoUrl: logo("lcwaikiki"), description: "Herkes için moda", category: "Moda", dealCount: 21, websiteUrl: "https://lcwaikiki.com", color: "#0057A8" },
+  { id: "7", slug: "hm", name: "H&M", logoUrl: logo("hm"), description: "Fashion and quality at the best price", category: "Moda", dealCount: 11, websiteUrl: "https://hm.com", color: "#E50010" },
+  { id: "8", slug: "mediamarkt", name: "MediaMarkt", logoUrl: logo("mediamarkt"), description: "Teknoloji ve elektronikte güvenilir adres", category: "Elektronik", dealCount: 16, websiteUrl: "https://mediamarkt.com.tr", color: "#DF0000" },
+  { id: "9", slug: "teknosa", name: "Teknosa", logoUrl: logo("teknosa"), description: "Teknoloji hayatı kolaylaştırır", category: "Elektronik", dealCount: 8, websiteUrl: "https://teknosa.com", color: "#005DAA" },
+  { id: "10", slug: "apple", name: "Apple", logoUrl: logo("apple"), description: "Think Different", category: "Elektronik", dealCount: 5, websiteUrl: "https://apple.com", color: "#111111" },
+  { id: "11", slug: "samsung", name: "Samsung", logoUrl: logo("samsung"), description: "Do What You Can't", category: "Elektronik", dealCount: 13, websiteUrl: "https://samsung.com", color: "#1428A0" },
+  { id: "12", slug: "sephora", name: "Sephora", logoUrl: logo("sephora"), description: "Beauty for all", category: "Güzellik", dealCount: 10, websiteUrl: "https://sephora.com.tr", color: "#000000" },
+  { id: "13", slug: "mango", name: "Mango", logoUrl: logo("mango"), description: "Mediterranean inspirations", category: "Moda", dealCount: 7, websiteUrl: "https://mango.com", color: "#000000" },
+  { id: "14", slug: "koton", name: "Koton", logoUrl: logo("koton"), description: "Giyimde yeni nesil", category: "Moda", dealCount: 14, websiteUrl: "https://koton.com", color: "#000000" },
+  { id: "15", slug: "boyner", name: "Boyner", logoUrl: logo("boyner"), description: "Yaşama keyif kat", category: "Moda", dealCount: 9, websiteUrl: "https://boyner.com.tr", color: "#E30613" },
+  { id: "16", slug: "dyson", name: "Dyson", logoUrl: logo("dyson"), description: "Mühendislik, teknoloji ve tasarımda öncü", category: "Ev & Yaşam", dealCount: 4, websiteUrl: "https://dyson.com.tr", color: "#111111" },
 ];

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { upcomingDeals } from "@/lib/mock-data";
 import Countdown from "./countdown";
+import BrandLogo from "./brand-logo";
 
 function formatPrice(price: number) {
   return price.toLocaleString("tr-TR") + " ₺";
@@ -51,15 +52,13 @@ export default function UpcomingDeals() {
               <div className="flex flex-col gap-3 p-4">
                 {/* Brand */}
                 <div className="flex items-center gap-2">
-                  <div className="relative h-6 w-6 overflow-hidden rounded-lg bg-white shadow-sm shrink-0">
-                    <Image
-                      src={deal.logoUrl}
-                      alt={deal.brand}
-                      fill
-                      className="object-contain p-0.5"
-                      unoptimized
-                    />
-                  </div>
+                  <BrandLogo
+                    name={deal.brand}
+                    logoUrl={deal.logoUrl}
+                    size={24}
+                    radius={6}
+                    padding={3}
+                  />
                   <span className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
                     {deal.brand}
                   </span>

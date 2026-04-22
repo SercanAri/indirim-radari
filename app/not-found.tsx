@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { Search } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sayfa Bulunamadı — İndirim Radarı",
+  title: "Sayfa Bulunamadı — indi.",
 };
 
 export default function NotFound() {
@@ -21,18 +22,18 @@ export default function NotFound() {
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-3">
-        <a
+        <Link
           href="/"
           className="rounded-full bg-[var(--color-primary)] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
         >
           Ana Sayfaya Dön
-        </a>
-        <a
+        </Link>
+        <Link
           href="/kampanyalar"
           className="rounded-full border border-[var(--border)] px-6 py-2.5 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--color-primary)]/40"
         >
           Kampanyalara Bak
-        </a>
+        </Link>
       </div>
     </div>
   );

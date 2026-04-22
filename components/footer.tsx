@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Logo from "./logo";
+
 const footerLinks = {
   Platform: [
     { label: "Tüm Kampanyalar", href: "/kampanyalar" },
@@ -25,14 +28,11 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <a href="/" className="flex items-center gap-2">
-              <span className="text-lg font-bold text-[var(--color-primary)]">İndirim</span>
-              <span className="rounded-md bg-[var(--color-accent)] px-1.5 py-0.5 text-xs font-bold text-white">
-                RADAR
-              </span>
-            </a>
+            <Link href="/" aria-label="indi anasayfa">
+              <Logo size="md" />
+            </Link>
             <p className="mt-3 text-sm text-[var(--muted)] max-w-xs leading-relaxed">
-              Türkiye&apos;nin büyük markalarındaki tüm indirimleri tek ekranda takip et.
+              Fiyatlar indi, sen de <span className="font-semibold text-[var(--color-accent)]">indi</span>&apos;yle indir. Türkiye&apos;nin büyük markalarındaki tüm kampanyaları tek ekranda yakala.
             </p>
             <div className="mt-4 flex gap-3">
               {["𝕏", "📘", "📸"].map((icon, i) => (
@@ -71,7 +71,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 sm:flex-row">
           <p className="text-xs text-[var(--muted)]">
-            © 2026 İndirim Radarı. Tüm hakları saklıdır.
+            © 2026 indi. — Cüzdanın seni seviyor.
           </p>
           <p className="text-xs text-[var(--muted)]">
             Türkiye&apos;den 🇹🇷 ile yapıldı

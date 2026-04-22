@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { NavLink } from "@/types";
+import Logo from "./logo";
 
 const navLinks: NavLink[] = [
   { label: "Kampanyalar", href: "/kampanyalar" },
@@ -18,14 +20,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 shrink-0">
-          <span className="text-xl font-bold text-[var(--color-primary)]">
-            İndirim
-          </span>
-          <span className="rounded-md bg-[var(--color-accent)] px-1.5 py-0.5 text-xs font-bold text-white">
-            RADAR
-          </span>
-        </a>
+        <Link href="/" className="shrink-0 transition-transform hover:scale-105" aria-label="indi anasayfa">
+          <Logo size="md" />
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6">
@@ -49,7 +46,7 @@ export default function Header() {
             </svg>
             <input
               type="text"
-              placeholder="Marka veya kampanya ara..."
+              placeholder="Marka/Ürün Ara"
               className="bg-transparent outline-none w-full text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm"
             />
           </div>
@@ -99,7 +96,7 @@ export default function Header() {
             <input
               autoFocus
               type="text"
-              placeholder="Marka veya kampanya ara..."
+              placeholder="Marka/Ürün Ara"
               className="bg-transparent outline-none w-full text-sm text-[var(--foreground)] placeholder:text-[var(--muted)]"
             />
           </div>
