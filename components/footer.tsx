@@ -50,8 +50,13 @@ export default function Footer() {
             <Link href="/" aria-label="indi anasayfa">
               <Logo size="md" />
             </Link>
-            <p className="mt-3 text-sm text-[var(--muted)] max-w-xs leading-relaxed">
-              Fiyatlar indi, sen de <span className="font-semibold text-[var(--color-accent)]">indi</span>&apos;yle indir. Türkiye&apos;nin büyük markalarındaki tüm kampanyaları tek ekranda yakala.
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-[var(--muted)]">
+              Türkiye&apos;nin indirimlerini takip et.{" "}
+              <span className="font-semibold text-[var(--foreground)]">
+                Kaçırmadan önce.
+              </span>
+              <br />
+              200+ marka, canlı fiyat takibi, erken bildirim.
             </p>
             <div className="mt-4 flex gap-3">
               {SOCIAL.map((social) => (
@@ -100,10 +105,10 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 sm:flex-row">
           <p className="text-xs text-[var(--muted)]">
-            © 2026 indi. — Cüzdanın seni seviyor.
+            © 2026 indi. — Türkiye&apos;nin İndirim Radarı
           </p>
           <p className="text-xs text-[var(--muted)]">
-            Türkiye&apos;den 🇹🇷 ile yapıldı
+            Türkiye&apos;de hazırlandı
           </p>
         </div>
       </div>

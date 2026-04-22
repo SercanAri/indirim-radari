@@ -94,9 +94,20 @@ export default function BrandsMarquee() {
               200+ Markada <span className="text-[var(--foreground)]">canlı</span> fiyat takibi
             </p>
           </div>
-          <span className="hidden text-xs italic text-[var(--muted)] sm:block">
-            &ldquo;Radar açık, cüzdanlar teyakkuzda.&rdquo;
-          </span>
+          {/* Social proof — rakam bazlı, mock demo için plausible değer */}
+          <div className="hidden items-center gap-2 sm:flex">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-success)]/15 text-xs font-black text-[var(--color-success)]">
+              ✓
+            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-sm font-black text-[var(--foreground)] tabular-nums">
+                47.280 kullanıcı
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-wide text-[var(--muted)]">
+                Bu ay kampanya yakaladı
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
