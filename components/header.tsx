@@ -20,9 +20,22 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        {/* Logo */}
-        <Link href="/" className="shrink-0 transition-transform hover:scale-105" aria-label="indi anasayfa">
+        {/* Logo + tagline */}
+        <Link
+          href="/"
+          className="group flex shrink-0 items-center gap-3 transition-transform hover:scale-[1.02]"
+          aria-label="indi. — Türkiye'nin İndirim Radarı"
+        >
           <Logo size="md" />
+          <span className="hidden h-8 w-px bg-[var(--border)] lg:block" aria-hidden="true" />
+          <span className="hidden text-xs font-semibold leading-tight text-[var(--muted)] lg:flex lg:flex-col">
+            <span className="text-[10px] uppercase tracking-widest text-[var(--color-primary)]">
+              Türkiye&apos;nin
+            </span>
+            <span className="text-sm font-bold text-[var(--foreground)]">
+              İndirim Radarı
+            </span>
+          </span>
         </Link>
 
         {/* Desktop Nav */}

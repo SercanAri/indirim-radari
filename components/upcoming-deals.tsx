@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Bell } from "lucide-react";
 import { upcomingDeals } from "@/lib/mock-data";
 import Countdown from "./countdown";
 import BrandLogo from "./brand-logo";
@@ -82,9 +84,13 @@ export default function UpcomingDeals() {
                   <Countdown targetDate={deal.startsAt} />
                 </div>
 
-                <button className="w-full rounded-full border border-[var(--color-primary)] py-1.5 text-xs font-semibold text-[var(--color-primary)] transition-colors hover:bg-[var(--color-primary)] hover:text-white">
+                <Link
+                  href={`/giris?takip=${deal.id}`}
+                  className="group inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-[var(--color-primary)] py-1.5 text-xs font-semibold text-[var(--color-primary)] transition-colors hover:bg-[var(--color-primary)] hover:text-white"
+                >
+                  <Bell className="h-3.5 w-3.5 transition-transform group-hover:scale-110" />
                   Bildirim Al
-                </button>
+                </Link>
               </div>
             </article>
           ))}

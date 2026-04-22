@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Mail, Lock, Eye, ArrowRight } from "lucide-react";
+import { Bell, Mail, Lock, Eye, ArrowRight } from "lucide-react";
 import Logo from "@/components/logo";
 
 export const metadata: Metadata = {
@@ -8,9 +8,29 @@ export const metadata: Metadata = {
   description: "Hesabına giriş yap ve favori markalarının kampanyalarını takip et.",
 };
 
-export default function GirisPage() {
+function formatTakipLabel(slug: string): string {
+  // "lcwaikiki" → "LC Waikiki", "trendyol" → "Trendyol"
+  const map: Record<string, string> = {
+    lcwaikiki: "LC Waikiki",
+    hm: "H&M",
+    mediamarkt: "MediaMarkt",
+    defacto: "DeFacto",
+  };
+  if (map[slug]) return map[slug];
+  if (/^\d+$/.test(slug)) return "Bu kampanyayı";
+  return slug.charAt(0).toUpperCase() + slug.slice(1);
+}
+
+export default async function GirisPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ takip?: string }>;
+}) {
+  const { takip } = await searchParams;
+  const takipLabel = takip ? formatTakipLabel(takip) : null;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--background)] px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--background)] px-4 py-8">
       {/* Background decoration */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-[var(--color-primary)]/10 blur-3xl" />
@@ -23,13 +43,33 @@ export default function GirisPage() {
           <Logo size="lg" />
         </Link>
 
+        {/* Takip aktivasyon bandı */}
+        {takipLabel && (
+          <div className="mb-4 flex items-start gap-3 rounded-2xl border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/8 p-3.5 text-left">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)]/15 text-[var(--color-primary)]">
+              <Bell className="h-4 w-4" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-wide text-[var(--color-primary)]">
+                Takip için bir adım kaldı
+              </p>
+              <p className="mt-0.5 text-sm font-semibold leading-snug text-[var(--foreground)]">
+                <span className="text-[var(--color-primary)]">{takipLabel}</span> kampanyası
+                başladığı anda sana haber veriyoruz.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Card */}
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-6 shadow-xl">
           <h1 className="mb-1 text-xl font-bold text-[var(--foreground)]">
-            Tekrar hoş geldin
+            {takipLabel ? "Giriş yap, takibe al" : "Tekrar hoş geldin"}
           </h1>
           <p className="mb-6 text-sm text-[var(--muted)]">
-            Hesabına giriş yaparak kampanyaları takip et
+            {takipLabel
+              ? "Kampanya başladığında e-posta ile haber ver."
+              : "Hesabına giriş yaparak kampanyaları takip et"}
           </p>
 
           <form className="flex flex-col gap-4">

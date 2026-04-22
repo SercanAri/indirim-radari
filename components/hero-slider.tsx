@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { Bell } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import BrandLogo from "./brand-logo";
@@ -399,22 +401,31 @@ function SlidePanel({ slide }: { slide: Slide }) {
           {/* Countdown */}
           <div className="flex flex-col gap-1.5">
             <span className="text-xs font-semibold uppercase tracking-widest text-white/60">
-              Biter bitmez hatırlatıyoruz
+              Kampanya bitimine
             </span>
             <SlideCountdown endsAt={slide.endsAt} />
           </div>
 
-          {/* CTA */}
-          <a
-            href={slide.ctaHref}
-            className="mt-1 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-            style={{ color: slide.accent }}
-          >
-            {slide.ctaLabel}
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
+          {/* CTAs — primary + notify */}
+          <div className="mt-1 flex flex-wrap items-center gap-3">
+            <a
+              href={slide.ctaHref}
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+              style={{ color: slide.accent }}
+            >
+              {slide.ctaLabel}
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+            <Link
+              href={`/giris?takip=${slide.logoSlug}`}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/20"
+            >
+              <Bell className="h-4 w-4 transition-transform group-hover:scale-110 group-hover:rotate-12" />
+              Biter bitmez haber ver
+            </Link>
+          </div>
         </div>
 
         {/* Right: real photo visual (desktop) */}
