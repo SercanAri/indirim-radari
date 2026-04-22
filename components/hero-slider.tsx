@@ -17,13 +17,14 @@ interface Slide {
   fromPrice: number;
   discount: number;
   endsAt: Date;
-  ctaLabel: string;
   ctaHref: string;
   accent: string;
   bgFrom: string;
   bgTo: string;
   imageUrl: string;
 }
+
+const PRIMARY_CTA = "Kampanyayı Gör";
 
 const now = new Date();
 const addHours = (h: number) => new Date(now.getTime() + h * 3600000);
@@ -34,11 +35,10 @@ const SLIDES: Slide[] = [
     brand: "Trendyol",
     logoSlug: "trendyol",
     campaignName: "Efsane Hafta",
-    urgency: "Bu fiyatlar ayda bir gelir — kaçırırsan 30 gün beklersin.",
+    urgency: "Ayda bir yapılan kampanya. Sonraki tur 30 gün sonra başlar.",
     fromPrice: 149,
     discount: 70,
     endsAt: addHours(11),
-    ctaLabel: "Hemen Sepete Koş",
     ctaHref: "#",
     accent: "#F27A1A",
     bgFrom: "#F27A1A",
@@ -50,11 +50,10 @@ const SLIDES: Slide[] = [
     brand: "Hepsiburada",
     logoSlug: "hepsiburada",
     campaignName: "Teknoloji Festivali",
-    urgency: "Elektronikte yılın sayılı kampanyalarından biri. Sonraki: Mayıs.",
+    urgency: "Yılda üç kez yapılan elektronik kampanyası. Sonraki: Mayıs.",
     fromPrice: 499,
     discount: 55,
     endsAt: addHours(7),
-    ctaLabel: "Fırsatları Tara",
     ctaHref: "#",
     accent: "#FF6000",
     bgFrom: "#FF6000",
@@ -66,11 +65,10 @@ const SLIDES: Slide[] = [
     brand: "LC Waikiki",
     logoSlug: "lcwaikiki",
     campaignName: "Sezon Finali",
-    urgency: "Stoklar sıfırlandığında aynı ürün bir daha gelmez.",
+    urgency: "Stoklar bittiğinde yenilenmeyecek. Sezon sonuna özel fiyatlar.",
     fromPrice: 79,
     discount: 60,
     endsAt: addHours(18),
-    ctaLabel: "Koleksiyonu Gez",
     ctaHref: "#",
     accent: "#0057A8",
     bgFrom: "#0057A8",
@@ -82,11 +80,10 @@ const SLIDES: Slide[] = [
     brand: "MediaMarkt",
     logoSlug: "mediamarkt",
     campaignName: "Kırmızı Fiyat Günleri",
-    urgency: "Kırmızı Fiyat yılda sadece 2 kez — sonraki Kasım'da.",
+    urgency: "Yılda iki kez yapılan kampanya. Sonraki: Kasım.",
     fromPrice: 1299,
     discount: 45,
     endsAt: addHours(5),
-    ctaLabel: "Son 5 Saati Yakala",
     ctaHref: "#",
     accent: "#CC0000",
     bgFrom: "#CC0000",
@@ -98,11 +95,10 @@ const SLIDES: Slide[] = [
     brand: "Sephora",
     logoSlug: "sephora",
     campaignName: "Güzellik Haftası",
-    urgency: "Aynı formül, sonraki indirim aylar sonra.",
+    urgency: "Aylık güzellik indirimi. Sonraki kampanya: Mayıs.",
     fromPrice: 249,
     discount: 40,
     endsAt: addHours(14),
-    ctaLabel: "Güzelliğe Göz At",
     ctaHref: "#",
     accent: "#DB2777",
     bgFrom: "#500724",
@@ -118,9 +114,15 @@ function formatTRY(n: number) {
 const AUTO_PLAY_MS = 6000;
 
 // ─── Flip digit ───────────────────────────────────────────────────────────────
-function FlipDigit({ value }: { value: string }) {
+function FlipDigit({ value, critical }: { value: string; critical: boolean }) {
   return (
-    <div className="relative h-10 w-7 overflow-hidden rounded-md bg-black/30 backdrop-blur-sm border border-white/10">
+    <div
+      className={`relative h-10 w-7 overflow-hidden rounded-md border backdrop-blur-sm transition-colors duration-500 ${
+        critical
+          ? "border-white/40 bg-[#7f1d1d]/80 shadow-[0_0_14px_rgba(239,68,68,0.4)]"
+          : "border-white/10 bg-black/30"
+      }`}
+    >
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={value}
@@ -160,6 +162,9 @@ function SlideCountdown({ endsAt }: { endsAt: Date }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endsAt]);
 
+  // FOMO: son 1 saat altında ise kritik uyarı + pulsing ring
+  const critical = time.h < 1;
+
   const parts = [
     { label: "SA", digits: pad(time.h) },
     { label: "DK", digits: pad(time.m) },
@@ -167,19 +172,27 @@ function SlideCountdown({ endsAt }: { endsAt: Date }) {
   ];
 
   return (
-    <div className="flex items-end gap-2">
-      {parts.map(({ label, digits }, i) => (
-        <div key={label} className="flex flex-col items-center gap-1">
+    <div className="relative inline-flex items-end gap-2">
+      {/* Pulsing ring — only when critical */}
+      {critical && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-2 rounded-xl border-2 border-[#ef4444] opacity-60 animate-ping"
+        />
+      )}
+      {parts.map(({ label, digits }) => (
+        <div key={label} className="relative flex flex-col items-center gap-1">
           <div className="flex gap-0.5">
-            <FlipDigit value={digits[0]} />
-            <FlipDigit value={digits[1]} />
+            <FlipDigit value={digits[0]} critical={critical} />
+            <FlipDigit value={digits[1]} critical={critical} />
           </div>
-          <span className="text-[10px] font-semibold tracking-widest text-white/50">
+          <span
+            className={`text-[10px] font-semibold tracking-widest transition-colors duration-500 ${
+              critical ? "text-[#fca5a5]" : "text-white/50"
+            }`}
+          >
             {label}
           </span>
-          {i < 2 && (
-            <span className="absolute mt-1 text-white/60 font-bold text-base hidden" />
-          )}
         </div>
       ))}
     </div>
@@ -417,23 +430,29 @@ function SlidePanel({ slide }: { slide: Slide }) {
             ⚠ {slide.urgency}
           </p>
 
-          {/* CTAs — primary + notify */}
+          {/* CTAs — tutarlı hiyerarşi: primary (dolgu beyaz, büyük, gölgeli) > secondary (cam, ince) */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={slide.ctaHref}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold shadow-xl transition-all duration-150 hover:-translate-y-0.5 hover:shadow-2xl active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               style={{ color: slide.accent }}
             >
-              {slide.ctaLabel}
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              {PRIMARY_CTA}
+              <svg
+                className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </a>
             <Link
               href={`/giris?takip=${slide.logoSlug}`}
-              className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/20"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white/90 backdrop-blur-sm transition-all duration-150 hover:border-white/60 hover:bg-white/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             >
-              <Bell className="h-4 w-4 transition-transform group-hover:scale-110 group-hover:rotate-12" />
+              <Bell className="h-4 w-4 transition-transform duration-150 group-hover:scale-110" />
               Takibe Al
             </Link>
           </div>

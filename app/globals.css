@@ -63,7 +63,7 @@ body {
 }
 
 .animate-marquee {
-  animation: marquee-x 50s linear infinite;
+  animation: marquee-x 40s linear infinite;
   width: max-content;
   will-change: transform;
 }
@@ -72,9 +72,16 @@ body {
   animation-play-state: paused;
 }
 
+/* Reduced motion: animasyonu durdur, duplicate set'i gizle,
+   manuel horizontal scroll ile erişilebilir kalsın */
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
+  .marquee-duplicate {
+    display: none !important;
   }
 }
 

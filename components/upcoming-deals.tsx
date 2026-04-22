@@ -33,7 +33,7 @@ function formatStartsAt(target: Date): { absolute: string; relative: string } {
 export default function UpcomingDeals() {
   return (
     <section id="yakinda" className="w-full bg-[var(--surface)] py-8 sm:py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 2xl:max-w-[90rem]">
         <div className="mb-5 flex items-center justify-between">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-[var(--foreground)]">

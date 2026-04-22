@@ -124,7 +124,7 @@ export default function BrandsMarquee() {
           {MARQUEE_BRANDS.map((brand) => (
             <BrandChip key={brand.slug} brand={brand} />
           ))}
-          <div aria-hidden="true" className="contents">
+          <div aria-hidden="true" className="marquee-duplicate contents">
             {MARQUEE_BRANDS.map((brand) => (
               <BrandChip key={`dup-${brand.slug}`} brand={brand} />
             ))}

@@ -80,7 +80,7 @@ export default function Header() {
 
           <a
             href="/giris"
-            className="rounded-full bg-[var(--color-primary)] px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
+            className="rounded-full bg-[var(--color-primary)] px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-[var(--color-primary-hover)] hover:shadow-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
           >
             Giriş Yap
           </a>

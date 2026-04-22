@@ -59,7 +59,7 @@ export default function SearchHero() {
           />
           <button
             type="submit"
-            className="shrink-0 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[var(--color-primary-hover)] hover:shadow-lg sm:px-6"
+            className="shrink-0 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-bold text-white shadow-md transition-all duration-150 hover:bg-[var(--color-primary-hover)] hover:shadow-lg active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] sm:px-6"
           >
             Ara
           </button>
