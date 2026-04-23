@@ -49,6 +49,25 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
   const isRealDiscount =
     deal.price30dAgo !== undefined && deal.salePrice <= deal.price30dAgo;
 
+  // Schema.org Product + Offer — Google'da rich snippet, Merchant eligibility
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: deal.title,
+    brand: { "@type": "Brand", name: deal.brand },
+    category: deal.category,
+    ...(deal.imageUrl ? { image: deal.imageUrl } : {}),
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "TRY",
+      price: deal.salePrice.toString(),
+      priceValidUntil: deal.endsAt.toISOString(),
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: { "@type": "Organization", name: deal.brand },
+    },
+  };
+
   return (
     <article
       className={`group relative flex h-full flex-col rounded-2xl border overflow-hidden transition-all duration-150 hover:-translate-y-1 hover:shadow-xl active:translate-y-0 focus-within:ring-2 focus-within:ring-[var(--color-primary)]/40 ${
@@ -57,6 +76,10 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
           : "border-[var(--border)] bg-[var(--background)] hover:border-[var(--color-primary)]/40"
       }`}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       {/* Overlay link — tüm kart clickable */}
       <Link
         href={`/kampanyalar#deal-${deal.id}`}

@@ -172,8 +172,14 @@ function SlideCountdown({ endsAt }: { endsAt: Date }) {
     { label: "SN", digits: pad(time.s) },
   ];
 
+  const srLabel = `Kampanya bitimine ${time.h} saat ${time.m} dakika ${time.s} saniye`;
+
   return (
     <div className="relative inline-flex items-end gap-2">
+      {/* Screen reader için aria-live — görseller gizlendiğinde de kalan süre duyulur */}
+      <span aria-live="polite" aria-atomic="true" className="sr-only">
+        {srLabel}
+      </span>
       {/* Pulsing ring — only when critical */}
       {critical && (
         <span
@@ -182,7 +188,7 @@ function SlideCountdown({ endsAt }: { endsAt: Date }) {
         />
       )}
       {parts.map(({ label, digits }) => (
-        <div key={label} className="relative flex flex-col items-center gap-1">
+        <div key={label} className="relative flex flex-col items-center gap-1" aria-hidden="true">
           <div className="flex gap-0.5">
             <FlipDigit value={digits[0]} critical={critical} />
             <FlipDigit value={digits[1]} critical={critical} />

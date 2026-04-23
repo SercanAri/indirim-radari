@@ -31,10 +31,27 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const cat = categories.find((c) => c.slug === slug);
-  if (!cat) return { title: "Kategori — İndirim Radarı" };
+  if (!cat) return { title: "Kategori" };
+  const title = `${cat.name} Kampanyaları`;
+  const description = `${cat.name} kategorisindeki aktif indirimler, kampanyalar ve fiyat takibi. ${cat.dealCount} kampanya listeleniyor.`;
+  const canonical = `/kategori/${cat.slug}`;
   return {
-    title: `${cat.name} Kampanyaları — İndirim Radarı`,
-    description: `${cat.name} kategorisindeki tüm aktif indirimleri ve kampanyaları keşfet.`,
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: `${title} — indi.`,
+      description,
+      url: canonical,
+      type: "website",
+      images: [{ url: cat.imageUrl, width: 800, height: 1000, alt: cat.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} — indi.`,
+      description,
+      images: [cat.imageUrl],
+    },
   };
 }
 
