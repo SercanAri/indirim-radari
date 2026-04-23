@@ -3,8 +3,9 @@ import { Mail, Send } from "lucide-react";
 export default function NewsletterCTA() {
   return (
     <section
+      id="newsletter"
       aria-labelledby="newsletter-heading"
-      className="w-full border-t border-[var(--border)] bg-[var(--background)] py-10 sm:py-14"
+      className="w-full scroll-mt-20 border-t border-[var(--border)] bg-[var(--background)] py-10 sm:py-14"
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-gradient-to-br from-[var(--color-primary)]/8 via-[var(--surface)] to-[var(--color-accent)]/6 p-6 sm:p-10">

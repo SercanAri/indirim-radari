@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/markalar`, priority: 0.8, changeFrequency: "daily", lastModified: now },
     { url: `${BASE}/favorilerim`, priority: 0.6, changeFrequency: "daily", lastModified: now },
     { url: `${BASE}/hakkimizda`, priority: 0.5, changeFrequency: "monthly", lastModified: now },
+    { url: `${BASE}/blog`, priority: 0.7, changeFrequency: "weekly", lastModified: now },
     { url: `${BASE}/giris`, priority: 0.4, changeFrequency: "yearly", lastModified: now },
   ];
 

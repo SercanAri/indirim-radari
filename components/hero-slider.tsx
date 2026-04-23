@@ -112,7 +112,8 @@ function formatTRY(n: number) {
   return n.toLocaleString("tr-TR") + " ₺";
 }
 
-const AUTO_PLAY_MS = 6000;
+// Mobile'da dokunma/swipe fırsatı için 8s — kullanıcı okumadan slide geçmesin
+const AUTO_PLAY_MS = 8000;
 
 // ─── Flip digit ───────────────────────────────────────────────────────────────
 function FlipDigit({ value, critical }: { value: string; critical: boolean }) {

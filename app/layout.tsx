@@ -13,6 +13,7 @@ import { Inter } from "next/font/google";
 //   fallback: ["system-ui", "sans-serif"],
 // });
 import "./globals.css";
+import MobileTabBar from "@/components/mobile-tab-bar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -127,7 +128,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col pb-14 md:pb-0">
+        {children}
+        <MobileTabBar />
+      </body>
     </html>
   );
 }
