@@ -51,12 +51,11 @@ export default function Footer() {
               <Logo size="md" />
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-[var(--muted)]">
-              Türkiye&apos;nin indirimlerini takip et.{" "}
               <span className="font-semibold text-[var(--foreground)]">
-                Kaçırmadan önce.
+                Radar açık, fiyatlar düşüyor.
               </span>
               <br />
-              200+ marka, canlı fiyat takibi, erken bildirim.
+              200+ markanın indirimlerini tek ekranda takip et. Kaçırmadan önce.
             </p>
             <div className="mt-4 flex gap-3">
               {SOCIAL.map((social) => (
@@ -105,7 +104,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 sm:flex-row">
           <p className="text-xs text-[var(--muted)]">
-            © 2026 indi. — Türkiye&apos;nin İndirim Radarı
+            © 2026 indi. — Radar açık, fiyatlar düşüyor.
           </p>
           <p className="text-xs text-[var(--muted)]">
             Türkiye&apos;de hazırlandı

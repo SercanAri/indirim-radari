@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Bell } from "lucide-react";
+import { Bell, ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import BrandLogo from "./brand-logo";
@@ -24,7 +24,8 @@ interface Slide {
   imageUrl: string;
 }
 
-const PRIMARY_CTA = "Kampanyayı Gör";
+const PRIMARY_CTA = "Kampanyaya Git";
+const SECONDARY_CTA = "Bildirim Al";
 
 const now = new Date();
 const addHours = (h: number) => new Date(now.getTime() + h * 3600000);
@@ -268,11 +269,15 @@ export default function HeroSlider() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selected, setSelected] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const scrollTo = useCallback(
     (i: number) => emblaApi?.scrollTo(i),
     [emblaApi]
   );
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   const advance = useCallback(() => {
     emblaApi?.scrollNext();
@@ -285,22 +290,90 @@ export default function HeroSlider() {
     return () => { emblaApi.off("select", onSelect); };
   }, [emblaApi]);
 
+  // prefers-reduced-motion: autoplay'i durdur, manuel kontrol kalsın
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => setReducedMotion(mql.matches);
+    apply();
+    mql.addEventListener("change", apply);
+    return () => mql.removeEventListener("change", apply);
+  }, []);
+
+  // Klavye navigasyonu — section focus aldığında ok tuşları çalışır
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        scrollPrev();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        scrollNext();
+      }
+    },
+    [scrollPrev, scrollNext]
+  );
+
   const slide = SLIDES[selected];
 
   return (
-    <section
-      className="w-full overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* Embla viewport */}
-      <div ref={emblaRef} className="overflow-hidden">
-        <div className="flex">
-          {SLIDES.map((s) => (
-            <SlidePanel key={s.id} slide={s} />
-          ))}
+    <>
+      {/* Value proposition strip — hero'nun hemen üstünde, site ne yapar cevabı */}
+      <div className="w-full border-b border-[var(--border)] bg-[var(--surface)]">
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 sm:px-6 2xl:max-w-[90rem]">
+          <span
+            aria-hidden="true"
+            className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)]/15 text-[var(--color-primary)]"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3 w-3">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4" strokeLinecap="round" />
+            </svg>
+          </span>
+          <p className="text-center text-xs font-semibold leading-tight text-[var(--foreground)] sm:text-sm">
+            <span className="hidden sm:inline">
+              200+ markanın indirimlerini tek ekranda takip et.
+            </span>
+            <span className="sm:hidden">200+ marka, tek ekran.</span>
+            <span className="ml-1 text-[var(--muted)]">Kaçırmadan önce.</span>
+          </p>
         </div>
       </div>
+
+      <section
+        ref={sectionRef}
+        aria-label="Öne çıkan kampanyalar"
+        tabIndex={-1}
+        onKeyDown={onKeyDown}
+        className="relative w-full overflow-hidden focus-visible:outline-none"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* Embla viewport */}
+        <div ref={emblaRef} className="overflow-hidden">
+          <div className="flex">
+            {SLIDES.map((s) => (
+              <SlidePanel key={s.id} slide={s} />
+            ))}
+          </div>
+        </div>
+
+        {/* Prev/Next buttons — absolute, carousel üstünde */}
+        <button
+          type="button"
+          onClick={scrollPrev}
+          aria-label="Önceki slayt"
+          className="absolute left-2 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all duration-150 hover:bg-black/50 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 md:flex md:p-2.5"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={scrollNext}
+          aria-label="Sonraki slayt"
+          className="absolute right-2 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all duration-150 hover:bg-black/50 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 md:flex md:p-2.5"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
 
       {/* Controls */}
       <div
@@ -314,12 +387,13 @@ export default function HeroSlider() {
               <button
                 key={s.id}
                 onClick={() => scrollTo(i)}
-                className="group flex flex-col gap-1.5 flex-1 min-w-0"
+                className="group flex flex-col gap-1.5 flex-1 min-w-0 focus-visible:outline-none"
                 aria-label={`${s.brand} slaytına git`}
+                aria-current={i === selected ? "true" : undefined}
               >
                 <ProgressBar
                   active={i === selected}
-                  paused={paused}
+                  paused={paused || reducedMotion}
                   duration={AUTO_PLAY_MS}
                   onComplete={advance}
                 />
@@ -335,7 +409,8 @@ export default function HeroSlider() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -453,7 +528,7 @@ function SlidePanel({ slide }: { slide: Slide }) {
               className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white/90 backdrop-blur-sm transition-all duration-150 hover:border-white/60 hover:bg-white/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             >
               <Bell className="h-4 w-4 transition-transform duration-150 group-hover:scale-110" />
-              Takibe Al
+              {SECONDARY_CTA}
             </Link>
           </div>
         </div>

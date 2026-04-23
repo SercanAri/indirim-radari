@@ -17,8 +17,10 @@ export default function NotFound() {
         <h1 className="mt-2 text-xl font-bold text-[var(--foreground)]">
           Sayfa bulunamadı
         </h1>
-        <p className="mt-1.5 text-sm text-[var(--muted)] max-w-xs">
-          Aradığın sayfa kaldırılmış, taşınmış ya da hiç olmamış olabilir.
+        <p className="mt-1.5 max-w-xs text-sm text-[var(--muted)]">
+          Bu sayfanın fiyatı da düştü — ortadan kayboldu.
+          <br />
+          Kampanyalar hâlâ burada, radarın kapanmadı.
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-3">

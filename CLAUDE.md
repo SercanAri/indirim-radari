@@ -37,6 +37,8 @@ Türkiye pazarındaki büyük markaların indirim ve kampanyalarını takip eden
 - Ticari markaları doğru yaz (ikas lowercase 'i' ile)
 - Tarih formatı: 15 Kasım 2026 (Türkçe locale)
 - date-fns kütüphanesini `tr` locale ile kullan
+- **Marka sesi rehberi:** `docs/tone-of-voice.md` — yeni metin yazmadan önce oku
+- Ana slogan: *"Radar açık, fiyatlar düşüyor."*
 
 ## Klasör Yapısı
 

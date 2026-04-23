@@ -20,9 +20,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "indi. — Türkiye'nin İndirim Radarı",
+  title: "indi. — Radar açık, fiyatlar düşüyor",
   description:
-    "Türkiye'nin indirimlerini takip et. Kaçırmadan önce. 200+ marka, canlı fiyat takibi, erken bildirim.",
+    "200+ markanın indirimlerini tek ekranda takip et. Radar açık, fiyatlar düşüyor. Kaçırmadan önce haber veriyoruz.",
 };
 
 export default function RootLayout({
