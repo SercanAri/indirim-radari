@@ -24,8 +24,9 @@ const footerLinks = {
   Platform: [
     { label: "Tüm Kampanyalar", href: "/kampanyalar" },
     { label: "Markalar", href: "/markalar" },
-    { label: "Kategoriler", href: "/kampanyalar" },
-    { label: "Giriş Yap", href: "/giris" },
+    { label: "Fiyat Geçmişi", href: "/fiyat-gecmisi/iphone-15" },
+    { label: "Favorilerim", href: "/favorilerim" },
+    { label: "Hesabım", href: "/hesabim" },
   ],
   Şirket: [
     { label: "Hakkımızda", href: "/hakkimizda" },
