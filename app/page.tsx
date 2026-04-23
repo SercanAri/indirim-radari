@@ -6,6 +6,9 @@ import BrandsMarquee from "@/components/brands-marquee";
 import TodayDeals from "@/components/today-deals";
 import UpcomingDeals from "@/components/upcoming-deals";
 import LastHours from "@/components/last-hours";
+import RadarFeatures from "@/components/radar-features";
+import Testimonials from "@/components/testimonials";
+import NewsletterCTA from "@/components/newsletter-cta";
 import CategoriesGrid from "@/components/categories-grid";
 import Footer from "@/components/footer";
 
@@ -25,8 +28,11 @@ export default function Home() {
         <BrandsMarquee />
         <TodayDeals />
         <LastHours />
+        <RadarFeatures />
         <UpcomingDeals />
+        <Testimonials />
         <CategoriesGrid />
+        <NewsletterCTA />
       </main>
       <Footer />
     </>

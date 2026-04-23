@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, Heart, TrendingDown } from "lucide-react";
+import { BadgeCheck, Eye, Heart, TrendingDown } from "lucide-react";
 import { Deal } from "@/types";
 import BrandLogo from "./brand-logo";
 
@@ -44,6 +44,10 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
       ? deal.price30dAgo - deal.salePrice
       : null;
   const badge = deal.badge ? BADGE_STYLES[deal.badge] : null;
+  // "Gerçek indirim" — satış fiyatı son 30 gün fiyatının altında/eşit:
+  // kampanya gerçekten son 30 günün en uygunu demektir (sahte indirim değil).
+  const isRealDiscount =
+    deal.price30dAgo !== undefined && deal.salePrice <= deal.price30dAgo;
 
   return (
     <article
@@ -135,15 +139,26 @@ export default function DealCard({ deal, variant = "default" }: DealCardProps) {
               {formatPrice(deal.originalPrice)}
             </span>
           </div>
-          <span
-            className={`w-fit rounded-md px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wide ${
-              isLastHours
-                ? "bg-[var(--color-danger)]/10 text-[var(--color-danger)]"
-                : "bg-[var(--color-success)]/10 text-[var(--color-success)]"
-            }`}
-          >
-            {formatPrice(savings)} kazan
-          </span>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span
+              className={`rounded-md px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wide ${
+                isLastHours
+                  ? "bg-[var(--color-danger)]/10 text-[var(--color-danger)]"
+                  : "bg-[var(--color-success)]/10 text-[var(--color-success)]"
+              }`}
+            >
+              {formatPrice(savings)} kazan
+            </span>
+            {isRealDiscount && (
+              <span
+                className="inline-flex items-center gap-1 rounded-md bg-[var(--color-success)]/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wide text-[var(--color-success)]"
+                title="Son 30 günün en uygun fiyatı — sahte indirim değil"
+              >
+                <BadgeCheck className="h-3 w-3" />
+                Gerçek İndirim
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Price history + watcher signals — sadece veri varsa göster */}

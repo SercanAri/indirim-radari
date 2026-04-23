@@ -102,7 +102,21 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 sm:flex-row">
+        {/* Şeffaflık — Türk kullanıcı affiliate konusunda şüpheci, açık konuş */}
+        <div className="mt-10 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-xs leading-relaxed text-[var(--muted)] sm:p-5">
+          <p className="font-semibold text-[var(--foreground)]">
+            Şeffaflık notu
+          </p>
+          <p className="mt-1">
+            Bazı kampanya linkleri affiliate (komisyonlu) olabilir. Sen tıkladığında marka bize küçük bir komisyon verir —{" "}
+            <span className="font-semibold text-[var(--foreground)]">
+              senin ödediğin fiyat değişmez.
+            </span>{" "}
+            Kampanya sıralamasını komisyon etkilemez; editör her zaman en düşük fiyatı işaretler.
+          </p>
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 sm:flex-row">
           <p className="text-xs text-[var(--muted)]">
             © 2026 indi. — Radar açık, fiyatlar düşüyor.
           </p>
