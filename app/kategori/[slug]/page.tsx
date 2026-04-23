@@ -11,6 +11,7 @@ import {
   BookOpen, Gamepad2, Plane,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Breadcrumb from "@/components/breadcrumb";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   shirt: Shirt,
@@ -70,14 +71,15 @@ export default async function CategoryPage({ params }: Props) {
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/30 via-transparent to-transparent" />
 
           <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 pb-8 sm:px-6 sm:pb-10 lg:pb-12">
-            {/* Breadcrumb */}
-            <nav className="mb-4 flex items-center gap-2 text-sm text-white/80">
-              <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
-              <span className="text-white/50">/</span>
-              <Link href="/kampanyalar" className="hover:text-white transition-colors">Kampanyalar</Link>
-              <span className="text-white/50">/</span>
-              <span className="font-medium text-white">{cat.name}</span>
-            </nav>
+            <Breadcrumb
+              className="mb-4"
+              variant="onDark"
+              items={[
+                { label: "Ana Sayfa", href: "/" },
+                { label: "Kampanyalar", href: "/kampanyalar" },
+                { label: cat.name },
+              ]}
+            />
 
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md sm:h-16 sm:w-16">

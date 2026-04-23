@@ -10,7 +10,13 @@ export interface Deal {
   startsAt: Date;
   category: string;
   imageUrl: string;
-  badge?: "hot" | "new" | "last";
+  /** Rozet: YENİ, ÇOK SATAN, SON SAATLER, EN DÜŞÜK FİYAT.
+   * Tek kart tek rozet — görsel gürültü olmasın. */
+  badge?: "new" | "hot" | "last" | "lowest";
+  /** 30 gün önceki fiyat — fiyat geçmişi etiketi için. */
+  price30dAgo?: number;
+  /** Şu anda izleyen kullanıcı sayısı — güven sinyali (sadece aktif/sıcak kartlarda). */
+  watchingNow?: number;
 }
 
 export interface Brand {
