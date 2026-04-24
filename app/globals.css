@@ -85,6 +85,42 @@ body {
   }
 }
 
+/* Radar sweep — spinner / logo için dönen tarayıcı çizgisi */
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Price breathe — hover'da fiyat rakamı nefes alır (Monzo/Revolut estetik) */
+@keyframes price-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.group:hover .hover-breathe {
+  animation: price-breathe 2s ease-in-out infinite;
+}
+
+/* Radar ping — marka logosu rasgele beliriyor */
+@keyframes radar-ping {
+  0% { transform: scale(0.6); opacity: 0; }
+  20% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* Wallet shake — "şişme" efekti */
+@keyframes wallet-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-3deg); }
+  75% { transform: scale(1.08) rotate(3deg); }
+}
+
+/* Number countdown — sayı animasyonu (slot machine benzeri) */
+@keyframes number-roll {
+  from { transform: translateY(-20%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 /* Hide scrollbar utility */
 .scrollbar-hide {
   -ms-overflow-style: none;

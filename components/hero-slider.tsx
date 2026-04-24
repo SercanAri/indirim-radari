@@ -89,7 +89,7 @@ const SLIDES: Slide[] = [
     accent: "#CC0000",
     bgFrom: "#CC0000",
     bgTo: "#E53935",
-    imageUrl: "https://images.unsplash.com/photo-1593359677879-a4bb92f4834c?w=900&h=900&fit=crop&q=85",
+    imageUrl: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=900&h=900&fit=crop&q=85",
   },
   {
     id: 5,
